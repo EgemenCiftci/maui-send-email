@@ -1,0 +1,42 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModels="clr-namespace:MauiSendEmail.ViewModels"
+             x:Class="MauiSendEmail.Views.SendEmailPage" 
+             x:DataType="viewModels:SendEmailPageViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Entry Placeholder="To" Text="{Binding To}"/>
+                <Button Text="Cc" Command="{Binding ShowCcCommand}" IsVisible="{Binding IsCcVisible, Converter={StaticResource InvertedBoolConverter}}" Grid.Column="1"/>
+                <Button Text="Bcc" Command="{Binding ShowBccCommand}" IsVisible="{Binding IsBccVisible, Converter={StaticResource InvertedBoolConverter}}" Grid.Column="2"/>
+            </Grid>
+            <Entry Placeholder="Cc" Text="{Binding Cc}" IsVisible="{Binding IsCcVisible}" Grid.Row="1"/>
+            <Entry Placeholder="Bcc" Text="{Binding Bcc}" IsVisible="{Binding IsBccVisible}" Grid.Row="2"/>
+            <Entry Placeholder="Subject" Text="{Binding Subject}" Grid.Row="3"/>
+            <Editor Text="{Binding Body}" Grid.Row="4"/>
+            <Button Text="Send" Command="{Binding SendCommand}" Grid.Row="5"/>
+        </Grid>
+        <Grid BackgroundColor="#80FFFFFF" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="True" Grid.RowSpan="100"/>
+        </Grid>
+    </Grid>
+</ContentPage>

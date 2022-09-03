@@ -1,0 +1,45 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MauiSendEmail.ViewModels"
+             x:Class="MauiSendEmail.Views.SettingsPage"
+             x:DataType="viewModels:SettingsPageViewModel">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Entry Placeholder="From" Text="{Binding From}" Keyboard="Email"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Entry Placeholder="Host" Text="{Binding Host}"/>
+                <Label VerticalTextAlignment="Center" Grid.Column="1">:</Label>
+                <Entry Placeholder="Port" Text="{Binding Port}" Keyboard="Numeric" MaxLength="5" Grid.Column="2"/>
+            </Grid>
+            <StackLayout Grid.Row="2" Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding UseSsl}"/>
+                <Label VerticalTextAlignment="Center">Use SSL</Label>
+            </StackLayout>
+            <StackLayout Grid.Row="3" Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding UseAuth}"/>
+                <Label VerticalTextAlignment="Center">Use Authorization</Label>
+            </StackLayout>
+            <Entry Placeholder="User Name" Text="{Binding UserName}" IsVisible="{Binding UseAuth}" Grid.Row="4"/>
+            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" IsVisible="{Binding UseAuth}" Grid.Row="5"/>
+            <Button Text="Save" Command="{Binding SaveCommand}" Grid.Row="6"/>
+        </Grid>
+        <Grid BackgroundColor="#80FFFFFF" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="True" Grid.RowSpan="100"/>
+        </Grid>
+    </Grid>
+</ContentPage>

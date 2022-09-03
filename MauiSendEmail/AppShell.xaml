@@ -1,0 +1,11 @@
+<Shell
+    x:Class="MauiSendEmail.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MauiSendEmail.Views"
+    Shell.FlyoutBehavior="Flyout">
+
+    <ShellContent Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}" Route="Settings"/>
+    <ShellContent Title="Send Email" ContentTemplate="{DataTemplate views:SendEmailPage}" Route="SendEmail"/>
+
+</Shell>
