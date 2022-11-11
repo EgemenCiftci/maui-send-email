@@ -10,19 +10,19 @@
         private const string UserNameKey = "user-name";
         private const string PasswordKey = "password";
 
-        public string From
+        public string? From
         {
             get => Preferences.Get(FromKey, null);
             set => Preferences.Set(FromKey, value);
         }
 
-        public string Host
+        public string? Host
         {
             get => Preferences.Get(HostKey, null);
             set => Preferences.Set(HostKey, value);
         }
 
-        public string Port
+        public string? Port
         {
             get => Preferences.Get(PortKey, null);
             set => Preferences.Set(PortKey, value);
@@ -40,7 +40,7 @@
             set => Preferences.Set(UseAuthKey, value);
         }
 
-        public string UserName
+        public string? UserName
         {
             get => Preferences.Get(UserNameKey, null);
             set => Preferences.Set(UserNameKey, value);
@@ -51,9 +51,12 @@
             return await SecureStorage.Default.GetAsync(PasswordKey);
         }
 
-        public async Task SetPasswordAsync(string value)
+        public async Task SetPasswordAsync(string? value)
         {
-            await SecureStorage.Default.SetAsync(PasswordKey, value);
+            if (value != null)
+            {
+                await SecureStorage.Default.SetAsync(PasswordKey, value);
+            }
         }
 
         public async Task<bool> IsDataCompleteAsync()

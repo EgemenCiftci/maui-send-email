@@ -23,7 +23,7 @@ public static class MauiProgram
             .Build();
     }
 
-    public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder mauiAppBuilder)
+    private static MauiAppBuilder RegisterAppServices(this MauiAppBuilder mauiAppBuilder)
     {
         _ = mauiAppBuilder.Services.AddSingleton<AppShell>();
         _ = mauiAppBuilder.Services.AddSingleton<SettingsService>();
@@ -31,7 +31,7 @@ public static class MauiProgram
         return mauiAppBuilder;
     }
 
-    public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
+    private static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
         _ = mauiAppBuilder.Services.AddTransient<SendEmailPageViewModel>();
         _ = mauiAppBuilder.Services.AddTransient<SettingsPageViewModel>();
@@ -39,7 +39,7 @@ public static class MauiProgram
         return mauiAppBuilder;
     }
 
-    public static MauiAppBuilder RegisterViews(this MauiAppBuilder mauiAppBuilder)
+    private static MauiAppBuilder RegisterViews(this MauiAppBuilder mauiAppBuilder)
     {
         _ = mauiAppBuilder.Services.AddTransient<SendEmailPage>();
         _ = mauiAppBuilder.Services.AddTransient<SettingsPage>();

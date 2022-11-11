@@ -13,22 +13,22 @@ public class SettingsPageViewModel : ObservableObject
         set => SetProperty(ref _isBusy, value);
     }
 
-    private string _from;
-    public string From
+    private string? _from;
+    public string? From
     {
         get => _from;
         set => SetProperty(ref _from, value);
     }
 
-    private string _host;
-    public string Host
+    private string? _host;
+    public string? Host
     {
         get => _host;
         set => SetProperty(ref _host, value);
     }
 
-    private string _port;
-    public string Port
+    private string? _port;
+    public string? Port
     {
         get => _port;
         set => SetProperty(ref _port, value);
@@ -48,15 +48,15 @@ public class SettingsPageViewModel : ObservableObject
         set => SetProperty(ref _useAuth, value);
     }
 
-    private string _userName;
-    public string UserName
+    private string? _userName;
+    public string? UserName
     {
         get => _userName;
         set => SetProperty(ref _userName, value);
     }
 
-    private string _password;
-    public string Password
+    private string? _password;
+    public string? Password
     {
         get => _password;
         set => SetProperty(ref _password, value);
@@ -99,12 +99,19 @@ public class SettingsPageViewModel : ObservableObject
             _settingsService.UserName = UserName;
             await _settingsService.SetPasswordAsync(Password);
 
-            await Application.Current.MainPage.DisplayAlert("Success", "Saved.", "OK");
+            if (Application.Current?.MainPage != null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Success", "Saved.", "OK");
+            }
+
             await Shell.Current.GoToAsync("//SendEmail");
         }
         catch (Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            if (Application.Current?.MainPage != null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
         finally
         {

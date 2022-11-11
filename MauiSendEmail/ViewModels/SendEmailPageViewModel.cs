@@ -29,36 +29,36 @@ public class SendEmailPageViewModel : ObservableObject
         set => SetProperty(ref _isBccVisible, value);
     }
 
-    private string _to;
-    public string To
+    private string? _to;
+    public string? To
     {
         get => _to;
         set => SetProperty(ref _to, value);
     }
 
-    private string _cc;
-    public string Cc
+    private string? _cc;
+    public string? Cc
     {
         get => _cc;
         set => SetProperty(ref _cc, value);
     }
 
-    private string _bcc;
-    public string Bcc
+    private string? _bcc;
+    public string? Bcc
     {
         get => _bcc;
         set => SetProperty(ref _bcc, value);
     }
 
-    private string _subject;
-    public string Subject
+    private string? _subject;
+    public string? Subject
     {
         get => _subject;
         set => SetProperty(ref _subject, value);
     }
 
-    private string _body;
-    public string Body
+    private string? _body;
+    public string? Body
     {
         get => _body;
         set => SetProperty(ref _body, value);
@@ -106,11 +106,17 @@ public class SendEmailPageViewModel : ObservableObject
             _ = await client.SendAsync(message);
             await client.DisconnectAsync(true);
 
-            await Application.Current.MainPage.DisplayAlert("Success", "Email sent.", "OK");
+            if (Application.Current?.MainPage != null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Success", "Email sent.", "OK");
+            }
         }
         catch (Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            if (Application.Current?.MainPage != null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
         finally
         {
